@@ -10,7 +10,6 @@ function handleSuitImageUpload(event) {
     const reader = new FileReader();
     reader.onload = function(e) {
         suitImage.onload = () => {
-            console.log('Suit image loaded');
             suitImageLoaded = true;
             if (fabricImageLoaded) {
                 changeFabric();
@@ -25,7 +24,6 @@ function handleFabricImageUpload(event) {
     const reader = new FileReader();
     reader.onload = function(e) {
         fabricImage.onload = () => {
-            console.log('Fabric image loaded');
             fabricImageLoaded = true;
             if (suitImageLoaded) {
                 changeFabric();
@@ -44,7 +42,6 @@ function changeFabric() {
     canvas.height = suitImage.height;
     
     ctx.drawImage(suitImage, 0, 0);
-    console.log('Suit image drawn on canvas');
     
     const regionX = suitImage.width * 0.10;
     const regionY = suitImage.height * 0.30;
@@ -59,15 +56,14 @@ function changeFabric() {
     patternCtx.fillRect(0, 0, regionWidth, regionHeight);
     
     ctx.drawImage(patternCanvas, regionX, regionY, regionWidth, regionHeight, regionX, regionY, regionWidth, regionHeight);
-    console.log('Fabric pattern applied on canvas');
+    // console.log('Fabric pattern applied on canvas');
     
     ctx.globalCompositeOperation = 'multiply';
     ctx.drawImage(suitImage, 0, 0);
     ctx.globalCompositeOperation = 'source-over';
-    console.log('Blending applied');
     
     const resultImage = document.getElementById('resultImage');
     resultImage.src = canvas.toDataURL();
     resultImage.style.display = 'block';
-    console.log('Result image updated');
+    // console.log('Result image updated');
 }
